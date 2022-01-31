@@ -33,7 +33,7 @@ app.get("/api/:date", (req, res) => {
   }
   let date = new Date(userDate);
   if (date.toUTCString() == "Invalid Date") {
-    res.json({ error: "Invalid Date" })
+    res.json({ error: date.toUTCString() })
   }
   // to convert date into a utc format we can use =>
   // date.toUTCString()
