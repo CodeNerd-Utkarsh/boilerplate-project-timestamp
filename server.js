@@ -27,12 +27,12 @@ app.get("/api/hello", function (req, res) {
 
 app.get("/api/:date", (req, res) => {
   let userDate = (req.params.date);
-  if (!userDate.match(/-/g)) {
+  if (userDate.match(/\d{5,}/)) {
     userDate = +userDate;
     console.log(userDate);
   }
   let date = new Date(userDate);
-  if (date == "Invalid Date") {
+  if (date.toUTCString() == "Invalid Date") {
     res.json({ error: "Invalid Date" })
   }
   // to convert date into a utc format we can use =>
@@ -40,6 +40,10 @@ app.get("/api/:date", (req, res) => {
 
   // to create date into unix userDate format we can use => date.valueOf()
 
+  res.json({ unix: date.valueOf(), utc: date.toUTCString() });
+})
+app.get('/api/', (req, res) => {
+  let date = new Date();
   res.json({ unix: date.valueOf(), utc: date.toUTCString() });
 })
 
